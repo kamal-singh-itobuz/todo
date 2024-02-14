@@ -21,6 +21,17 @@ body{
     font-size: 2rem;
     border: none;
 }
+.options {
+    button {
+        border: none;
+        background-color: #023047;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.5rem;
+    }
+    .all-show {
+        background-color: #fca311;
+    }
+}
 .tasks {
     background-color: #bce1f2;
     border: 1px solid #023047;
@@ -34,7 +45,6 @@ body{
         font-weight: 650;
     }
     button {
-        width: 8rem;
         padding: 0.5rem 1rem;
         background-color: #023047;
         border: none;
