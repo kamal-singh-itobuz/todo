@@ -33,6 +33,14 @@ body{
     .all-show {
         background-color: #fca311;
     }
+    .count {
+        display: inline-block;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        color: black;
+        background-color: #bce1f2;
+    }
 }
 .tasks {
     background-color: #bce1f2;

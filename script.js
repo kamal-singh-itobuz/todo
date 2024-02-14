@@ -7,6 +7,10 @@ const completeShow = document.querySelector(".complete-show");
 const activeShow = document.querySelector(".active-show");
 const allShow = document.querySelector(".all-show");
 const clearCompleted = document.querySelector(".clear-completed");
+
+const allTasksCount = document.querySelector('.all-count');
+const activeTasksCount = document.querySelector('.active-count'); 
+const completedTasksCount = document.querySelector('.completed-count'); 
 let allOrActiveOrComplete = "All";
 function backgroundChange(buttonName) {
     allOptionsBtns.forEach((ele) => {
@@ -82,14 +86,22 @@ function completeTask(completeTaskId) {
         completeBtn.style.backgroundColor = "#023047";
         completeBtn.innerText = "Complete";
         addedTasks[completeIndex].iscomplete = false;
-        if(allOrActiveOrComplete === "Complete") taskSection.removeChild(currentTask);
+        if(allOrActiveOrComplete === "Complete") {
+            taskSection.removeChild(currentTask);
+            completedTasksCount.innerText = Number(completedTasksCount.innerText)-1;
+            activeTasksCount.innerText = Number(activeTasksCount.innerText)+1;
+        }
     }
     else {
         taskDescription.style.textDecorationLine = "line-through";
         completeBtn.style.backgroundColor = "#8ac926";
         completeBtn.innerText = "Completed";
         addedTasks[completeIndex].iscomplete = true;
-        if (allOrActiveOrComplete === "Active") taskSection.removeChild(currentTask);
+        if (allOrActiveOrComplete === "Active"){
+            taskSection.removeChild(currentTask);
+            activeTasksCount.innerText = Number(activeTasksCount.innerText)-1;
+            completedTasksCount.innerText = Number(completedTasksCount.innerText)+1;
+        }
     }
     localStorage.setItem("todoTasks", JSON.stringify(addedTasks));
 }
@@ -115,6 +127,8 @@ addBtn.addEventListener("click", () => {
             iscomplete: false,
         };
         addedTasks.push(obj);
+        allTasksCount.innerText = addedTasks.length;
+        activeTasksCount.innerText = Number(activeTasksCount.innerText) + 1;
         addTask(taskSection, obj);
         localStorage.setItem("todoTasks", JSON.stringify(addedTasks));
     }
@@ -136,9 +150,14 @@ taskSection.addEventListener("click", (e) => {
 
 window.addEventListener("load", () => {
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
+    let completeCnt = 0;
     addedTasks.forEach((element) => {
+        if(element.iscomplete) completeCnt++;
         addTask(taskSection, element);
     });
+    allTasksCount.innerText = addedTasks.length;
+    completedTasksCount.innerText = completeCnt;
+    activeTasksCount.innerText = addedTasks.length - completeCnt;
 });
 
 inputField.addEventListener("keypress", (e) => {
@@ -152,21 +171,30 @@ completeShow.addEventListener("click", () => {
     backgroundChange(completeShow);
     allOrActiveOrComplete = "Complete";
     taskSection.innerHTML = "";
+    let completeCnt = 0;
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
     addedTasks.forEach((ele) => {
-        if (ele.iscomplete)
+        if (ele.iscomplete){
             htmlCreation(taskSection, ele.time, ele.task, ele.iscomplete);
+            completeCnt++;
+        }
     });
+    completedTasksCount.innerText = completeCnt;
 });
 
 activeShow.addEventListener("click", () => {
     backgroundChange(activeShow);
     allOrActiveOrComplete = "Active";
     taskSection.innerHTML = "";
+    let activeCnt = 0;
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
     addedTasks.forEach((ele) => {
-        if (!ele.iscomplete) htmlCreation(taskSection, ele.time, ele.task, false);
+        if (!ele.iscomplete){
+            htmlCreation(taskSection, ele.time, ele.task, false);
+            activeCnt++;
+        }
     });
+    activeTasksCount.innerText = activeCnt; 
 });
 
 allShow.addEventListener("click", () => {
@@ -177,6 +205,7 @@ allShow.addEventListener("click", () => {
     addedTasks.forEach((ele) =>
         htmlCreation(taskSection, ele.time, ele.task, ele.iscomplete)
     );
+    allTasksCount.innerText = addedTasks.length;
 });
 
 clearCompleted.addEventListener("click", () => {
@@ -184,5 +213,7 @@ clearCompleted.addEventListener("click", () => {
     taskSection.innerHTML = "";
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
     addedTasks = addedTasks.filter((ele) => ele.iscomplete === false);
+    allTasksCount.innerText = addedTasks.length;
+    completedTasksCount.innerText = 0;
     localStorage.setItem("todoTasks", JSON.stringify(addedTasks));
 });
