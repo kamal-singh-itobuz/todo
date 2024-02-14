@@ -3,6 +3,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 body{
     background-color: #5e548e !important;
@@ -44,8 +46,13 @@ body{
         font-size: 1.5rem;
         font-weight: 650;
     }
+    .delete-btn {
+        height: 2.2rem;
+        width: 2rem;
+        cursor: pointer;
+    }
     button {
-        padding: 0.5rem 1rem;
+        padding: 0.3rem 1rem;
         background-color: #023047;
         border: none;
         border-radius: 0.3rem;
