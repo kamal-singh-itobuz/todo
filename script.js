@@ -68,7 +68,10 @@ function addTask(taskSection, taskObj) {
 function deleteTask(deleteTaskId) {
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
     const deleteIndex = addedTasks.findIndex((ele) => ele.time === deleteTaskId);
+    if(addedTasks[deleteIndex].iscomplete) completedTasksCount.innerText = Number(completedTasksCount.innerText) - 1;
+    else activeTasksCount.innerText = Number(activeTasksCount.innerText) - 1;
     addedTasks.splice(deleteIndex, 1);
+    allTasksCount.innerText = addedTasks.length;
     localStorage.setItem("todoTasks", JSON.stringify(addedTasks));
     taskSection.removeChild(document.getElementById(deleteTaskId));
 }
@@ -86,10 +89,10 @@ function completeTask(completeTaskId) {
         completeBtn.style.backgroundColor = "#023047";
         completeBtn.innerText = "Complete";
         addedTasks[completeIndex].iscomplete = false;
-        if(allOrActiveOrComplete === "Complete") {
-            taskSection.removeChild(currentTask);
-            completedTasksCount.innerText = Number(completedTasksCount.innerText)-1;
+        if(allOrActiveOrComplete === "Complete") taskSection.removeChild(currentTask);
+        if(allOrActiveOrComplete === "All" || allOrActiveOrComplete === "Complete"){
             activeTasksCount.innerText = Number(activeTasksCount.innerText)+1;
+            completedTasksCount.innerText = Number(completedTasksCount.innerText)-1;
         }
     }
     else {
@@ -97,8 +100,8 @@ function completeTask(completeTaskId) {
         completeBtn.style.backgroundColor = "#8ac926";
         completeBtn.innerText = "Completed";
         addedTasks[completeIndex].iscomplete = true;
-        if (allOrActiveOrComplete === "Active"){
-            taskSection.removeChild(currentTask);
+        if (allOrActiveOrComplete === "Active") taskSection.removeChild(currentTask);
+        if(allOrActiveOrComplete === "All" || allOrActiveOrComplete === "Active"){
             activeTasksCount.innerText = Number(activeTasksCount.innerText)-1;
             completedTasksCount.innerText = Number(completedTasksCount.innerText)+1;
         }
