@@ -13,6 +13,9 @@ const allTasksCount = document.querySelector(".all-count");
 const activeTasksCount = document.querySelector(".active-count");
 const completedTasksCount = document.querySelector(".completed-count");
 let allOrActiveOrComplete = "All";
+
+let isUpdating = false;
+
 function backgroundChange(buttonName) {
     allOptionsBtns.forEach((ele) => (ele.style.backgroundColor = "#023047"));
     buttonName.style.backgroundColor = "#fca311";
@@ -72,6 +75,7 @@ function addTask(taskSection, taskObj) {
 }
 
 function editTask(editTaskId) {
+    isUpdating = true;
     const currentTask = document.getElementById(editTaskId);
     const taskText = currentTask.querySelector('.task-description');
     inputField.value = taskText.innerText;
@@ -187,10 +191,13 @@ window.addEventListener("load", () => {
     activeTasksCount.innerText = addedTasks.length - completeCnt;
 });
 
-inputField.addEventListener("keypress", (e) => {
+window.addEventListener('keypress', (e) => {
     if (e.key === "Enter") {
         e.preventDefault();
-        addBtn.click();
+        if(!isUpdating) addBtn.click();
+        if(isUpdating) updateBtn.click();
+
+        isUpdating = false;
     }
 });
 
@@ -246,6 +253,7 @@ clearCompleted.addEventListener("click", () => {
 });
 
 updateBtn.addEventListener('click', (e) => {
+    isUpdating = false;
     const updateTaskId = e.target.dataset.updatebtn;
     const updateTask = document.getElementById(updateTaskId);
     const updateText = updateTask.querySelector('.task-description');
