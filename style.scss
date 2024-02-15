@@ -13,20 +13,32 @@ $active-btn-color: #fdb745;
 body{
     background-color: $body-bg-color !important;
 }
-.input {
-    outline: none;
-    padding: 0.4rem 1rem;
-    opacity: 0.8;
-    border-radius: 0.3rem;
-    border: 1px solid $dark-blue-color;
+.header-fixed-container {
+    height: 25vh;
 }
-.add {
-    width: 3rem;
-    border-radius: 0.2rem;
-    background-color: $dark-blue-color;
-    font-size: 2rem;
-    border: none;
+.input-section {
+    height: 3rem;
+    >button {
+        border-radius: 0.2rem;
+        background-color: $dark-blue-color;
+        border: none;
+        padding: 0 1rem;
+    }
+    .input {
+        outline: none;
+        padding: 0.4rem 1rem;
+        opacity: 0.8;
+        border-radius: 0.3rem;
+        border: 1px solid $dark-blue-color;
+    }
+    .add {
+        font-size: 2rem;
+    }
+    .update {
+        display: none;
+    }
 }
+
 .options {
     button {
         border: none;
@@ -64,8 +76,21 @@ body{
             font-size: 1.5rem;
             font-weight: 650;
         }
-        .delete-btn {
-            height: 2.2rem;
+        .edit-task-box {
+            padding: 0.4rem;
+            display: flex;
+            gap: 1rem;
+            >input {
+                outline: none;
+                height: 2.1rem;
+                width: 70%;
+            }
+            >button {
+                color: white;
+            }
+        }
+        .delete-btn, .edit-btn {
+            height: 2rem;
             width: 2rem;
             cursor: pointer;
         }

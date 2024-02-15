@@ -11,20 +11,31 @@ body {
   background-color: #5e548e !important;
 }
 
-.input {
+.header-fixed-container {
+  height: 25vh;
+}
+
+.input-section {
+  height: 3rem;
+}
+.input-section > button {
+  border-radius: 0.2rem;
+  background-color: #023047;
+  border: none;
+  padding: 0 1rem;
+}
+.input-section .input {
   outline: none;
   padding: 0.4rem 1rem;
   opacity: 0.8;
   border-radius: 0.3rem;
   border: 1px solid #023047;
 }
-
-.add {
-  width: 3rem;
-  border-radius: 0.2rem;
-  background-color: #023047;
+.input-section .add {
   font-size: 2rem;
-  border: none;
+}
+.input-section .update {
+  display: none;
 }
 
 .options button {
@@ -65,8 +76,21 @@ body {
   font-size: 1.5rem;
   font-weight: 650;
 }
-.tasks-section .tasks .delete-btn {
-  height: 2.2rem;
+.tasks-section .tasks .edit-task-box {
+  padding: 0.4rem;
+  display: flex;
+  gap: 1rem;
+}
+.tasks-section .tasks .edit-task-box > input {
+  outline: none;
+  height: 2.1rem;
+  width: 70%;
+}
+.tasks-section .tasks .edit-task-box > button {
+  color: white;
+}
+.tasks-section .tasks .delete-btn, .tasks-section .tasks .edit-btn {
+  height: 2rem;
   width: 2rem;
   cursor: pointer;
 }
