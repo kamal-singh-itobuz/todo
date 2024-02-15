@@ -6,32 +6,36 @@
     scroll-behavior: smooth;
     scrollbar-width: none;
 }
+$body-bg-color: #5e548e;
+$task-bg-color: #bce1f2;
+$dark-blue-color: #023047;
+$active-btn-color: #fdb745;
 body{
-    background-color: #5e548e !important;
+    background-color: $body-bg-color !important;
 }
 .input {
     outline: none;
     padding: 0.4rem 1rem;
     opacity: 0.8;
     border-radius: 0.3rem;
-    border: 1px solid #023047;
+    border: 1px solid $dark-blue-color;
 }
 .add {
     width: 3rem;
     border-radius: 0.2rem;
-    background-color: #023047;
+    background-color: $dark-blue-color;
     font-size: 2rem;
     border: none;
 }
 .options {
     button {
         border: none;
-        background-color: #023047;
+        background-color: $dark-blue-color;
         padding: 0.5rem 1.5rem;
         border-radius: 0.5rem;
     }
     .all-show {
-        background-color: #fca311;
+        background-color: $active-btn-color;
     }
     .count {
         display: inline-block;
@@ -39,30 +43,37 @@ body{
         height: 2rem;
         border-radius: 50%;
         color: black;
-        background-color: #bce1f2;
+        background-color: $task-bg-color;
+        font-weight: 700;
     }
 }
-.tasks {
-    background-color: #bce1f2;
-    border: 1px solid #023047;
-    border-radius: 0.4rem;
-    .current-time {
-        font-size: 1.2rem;
-        opacity: 0.6;
-    }
-    .task-description {
-        font-size: 1.5rem;
-        font-weight: 650;
-    }
-    .delete-btn {
-        height: 2.2rem;
-        width: 2rem;
-        cursor: pointer;
-    }
-    button {
-        padding: 0.3rem 1rem;
-        background-color: #023047;
-        border: none;
-        border-radius: 0.3rem;
-    }
+.tasks-section {
+    height: 65vh;
+    overflow: scroll;
+    .tasks {
+        background-color: $task-bg-color;
+        border: 1px solid $dark-blue-color;
+        border-radius: 0.4rem;
+        .current-time {
+            font-size: 1.1rem;
+            opacity: 0.6;
+            font-style: oblique;
+        }
+        .task-description {
+            padding-left: 0.2rem;
+            font-size: 1.5rem;
+            font-weight: 650;
+        }
+        .delete-btn {
+            height: 2.2rem;
+            width: 2rem;
+            cursor: pointer;
+        }
+        button {
+            padding: 0.3rem 1rem;
+            background-color: $dark-blue-color;
+            border: none;
+            border-radius: 0.3rem;
+        }
+    }    
 }

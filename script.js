@@ -13,9 +13,7 @@ const activeTasksCount = document.querySelector('.active-count');
 const completedTasksCount = document.querySelector('.completed-count'); 
 let allOrActiveOrComplete = "All";
 function backgroundChange(buttonName) {
-    allOptionsBtns.forEach((ele) => {
-        ele.style.backgroundColor = "#023047";
-    });
+    allOptionsBtns.forEach((ele) => ele.style.backgroundColor = "#023047");
     buttonName.style.backgroundColor = "#fca311";
 }
 
@@ -28,19 +26,13 @@ function htmlCreation(section, timedate, task, iscomplete) {
     currentTime.setAttribute("class", "current-time");
     currentTime.innerText = timedate;
     const taskDescription = document.createElement("p");
-    taskDescription.setAttribute(
-        "class",
-        "task-description text-nowrap overflow-scroll"
-    );
+    taskDescription.setAttribute("class", "task-description text-nowrap overflow-scroll");
     taskDescription.setAttribute("data-taskid", timedate);
     taskDescription.innerText = task;
     taskCard.append(currentTime, taskDescription);
 
     const editDeleteCompleteBtn = document.createElement("div");
-    editDeleteCompleteBtn.setAttribute(
-        "class",
-        "d-flex align-items-center gap-4"
-    );
+    editDeleteCompleteBtn.setAttribute("class","d-flex align-items-center gap-4");
     const deleteBtn = document.createElement("img");
     deleteBtn.setAttribute("src", "./images/delete.svg");
     deleteBtn.setAttribute("alt", "delete...");
@@ -56,9 +48,9 @@ function htmlCreation(section, timedate, task, iscomplete) {
         completeBtn.innerText = "Completed";
         completeBtn.style.backgroundColor = "#8ac926";
     }
-    editDeleteCompleteBtn.appendChild(completeBtn);
-    taskCard.appendChild(editDeleteCompleteBtn);
-    section.appendChild(taskCard);
+    editDeleteCompleteBtn.append(completeBtn);
+    taskCard.append(editDeleteCompleteBtn);
+    section.prepend(taskCard);
 }
 
 function addTask(taskSection, taskObj) {
@@ -81,9 +73,7 @@ function completeTask(completeTaskId) {
     const completeBtn = currentTask.querySelector(".complete-btn");
     const taskDescription = currentTask.querySelector(".task-description");
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
-    const completeIndex = addedTasks.findIndex(
-        (ele) => ele.time === completeTaskId
-    );
+    const completeIndex = addedTasks.findIndex(ele => ele.time === completeTaskId);
     if(addedTasks[completeIndex].iscomplete){
         taskDescription.style.textDecorationLine = "none";
         completeBtn.style.backgroundColor = "#023047";
@@ -154,9 +144,9 @@ taskSection.addEventListener("click", (e) => {
 window.addEventListener("load", () => {
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
     let completeCnt = 0;
-    addedTasks.forEach((element) => {
-        if(element.iscomplete) completeCnt++;
-        addTask(taskSection, element);
+    addedTasks.forEach(ele => {
+        if(ele.iscomplete) completeCnt++;
+        addTask(taskSection, ele);
     });
     allTasksCount.innerText = addedTasks.length;
     completedTasksCount.innerText = completeCnt;
@@ -176,7 +166,7 @@ completeShow.addEventListener("click", () => {
     taskSection.innerHTML = "";
     let completeCnt = 0;
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
-    addedTasks.forEach((ele) => {
+    addedTasks.forEach(ele => {
         if (ele.iscomplete){
             htmlCreation(taskSection, ele.time, ele.task, ele.iscomplete);
             completeCnt++;
@@ -191,7 +181,7 @@ activeShow.addEventListener("click", () => {
     taskSection.innerHTML = "";
     let activeCnt = 0;
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
-    addedTasks.forEach((ele) => {
+    addedTasks.forEach(ele => {
         if (!ele.iscomplete){
             htmlCreation(taskSection, ele.time, ele.task, false);
             activeCnt++;
@@ -205,9 +195,7 @@ allShow.addEventListener("click", () => {
     allOrActiveOrComplete = "All";
     taskSection.innerHTML = "";
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
-    addedTasks.forEach((ele) =>
-        htmlCreation(taskSection, ele.time, ele.task, ele.iscomplete)
-    );
+    addedTasks.forEach(ele => htmlCreation(taskSection, ele.time, ele.task, ele.iscomplete));
     allTasksCount.innerText = addedTasks.length;
 });
 
@@ -215,7 +203,7 @@ clearCompleted.addEventListener("click", () => {
     backgroundChange(clearCompleted);
     taskSection.innerHTML = "";
     let addedTasks = JSON.parse(localStorage.getItem("todoTasks") || "[]");
-    addedTasks = addedTasks.filter((ele) => ele.iscomplete === false);
+    addedTasks = addedTasks.filter(ele => ele.iscomplete === false);
     allTasksCount.innerText = addedTasks.length;
     completedTasksCount.innerText = 0;
     localStorage.setItem("todoTasks", JSON.stringify(addedTasks));
